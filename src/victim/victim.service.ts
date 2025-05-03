@@ -46,17 +46,18 @@ export class VictimService {
     var list =await this.findAll(pagination)
     let listLenght = await list.length
     const currentTime = new Date();
-    const adjustedTime = new Date(currentTime.getTime() + 5 * 60 * 60 * 1000);
+    // const adjustedTime = new Date(currentTime.getTime() + 5 * 60 * 60 * 1000);
 
     for (let i = 0; i < listLenght; i++) {
       var victim =list[i]
       if (!victim.isAlive) continue;
-      if (!victim.images) continue;
+      
+      if (victim.images.length == 0) continue;
 
       if (victim.EditedAt){
-        var difference = adjustedTime.getTime()-victim.EditedAt.getTime();
+        var difference = currentTime.getTime()-victim.EditedAt.getTime();
       } else{
-        var difference = adjustedTime.getTime()-victim.createdAt.getTime();
+        var difference = currentTime.getTime()-victim.createdAt.getTime();
       }
 
       let id = victim.id;
