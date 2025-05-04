@@ -94,10 +94,9 @@ export class VictimService {
   }
 
   async findAll(paginationDto: PaginationDto) {
-    const { limit = 20, offset = 0 } = paginationDto;
     const products = await this.victimRepository.find({
-      take:limit,
-      skip: offset,
+      take:paginationDto.limit,
+      skip: paginationDto.offset,
       relations: {
         images:true,
       }
